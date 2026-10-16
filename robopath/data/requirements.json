@@ -1,0 +1,276 @@
+{
+  "product": {
+    "name": "RoboPath",
+    "version": "1.0 (prototype)",
+    "audience": "Grades 6–8 students, their teachers and school admins at Lincoln Middle School",
+    "goal": "Students learn programming and robotics through short modules: a lesson, a robot activity with instant feedback, a quiz and a reflection. Every action is saved and sent to the teacher's dashboard so the teacher can see who needs a hand.",
+    "sources": [
+      "ALL-screens-board.svg: user flow (00) and desktop screens 01–11",
+      "M1-phone-home.svg, M2-phone-activity.svg, M3-phone-dashboard.svg: phone layouts",
+      "robopath-all-modules.json: six modules with sections, assignments and quiz banks"
+    ]
+  },
+  "roles": [
+    { "role": "Student", "signIn": "Google account on @students.lincolnms.org", "can": ["See assigned and published pathways", "Work through modules step by step", "Run robot activities and quizzes with instant feedback", "Write reflections", "See their own progress, badges and module log"] },
+    { "role": "Teacher", "signIn": "Google Workspace account on @lincolnms.org", "can": ["See the class dashboard for each class they teach", "Open a student's detail and reflections", "Assign and remove pathways with a due date and note", "Preview any published module without saving progress"] },
+    { "role": "Admin", "signIn": "Google Workspace account on @lincolnms.org", "can": ["Add users and set role, class and active state", "Publish or hide courses (pathways)", "Read the system report", "Open the class dashboard for any class"] }
+  ],
+  "processes": [
+    {
+      "id": "P1", "name": "Sign in and role routing", "actor": "All roles",
+      "trigger": "A person opens RoboPath.",
+      "steps": [
+        { "screen": "01", "action": "Choose Student or Teacher or admin.", "system": "Shows the matching email domain hint.", "req": ["R6.1"] },
+        { "screen": "01", "action": "Continue with Google.", "system": "Checks the domain, the roster and the active flag.", "req": ["R6.2", "R6.3", "R6.4"] },
+        { "screen": "01", "action": "Sign-in refused (wrong domain, unknown, turned off, wrong role tab).", "system": "Explains why and how to fix it.", "req": ["R6.3"] },
+        { "screen": "02 / 07 / 10", "action": "Lands on their home.", "system": "Student → Student home, Teacher → Class dashboard, Admin → Users & roles.", "req": ["R6.5"] }
+      ],
+      "outcome": "The person is signed in with one role and sees only that role's navigation."
+    },
+    {
+      "id": "P2", "name": "Student learning loop", "actor": "Student",
+      "trigger": "Student presses Continue or Start on Student home or Pathways.",
+      "steps": [
+        { "screen": "02", "action": "Pick up where you left off.", "system": "Opens the module at the first unfinished step.", "req": ["R2.2"] },
+        { "screen": "03", "action": "Read lesson steps 1 and 2, press Next.", "system": "Marks the step done, saves, logs step_complete.", "req": ["R1.1", "R1.2", "R2.1", "R4.1"] },
+        { "screen": "04", "action": "Build a program and run it.", "system": "Animates the robot, gives instant feedback, logs activity_run.", "req": ["R3.1", "R3.2", "R3.3", "R4.1"] },
+        { "screen": "05", "action": "Answer and check each question, then submit.", "system": "Shows correct/incorrect feedback and hints, scores first tries, logs quiz_check and quiz_submit.", "req": ["R3.4", "R3.5", "R4.1"] },
+        { "screen": "05b", "action": "Write a reflection on the module assignment.", "system": "Saves the reflection for the teacher, logs reflection_submit.", "req": ["R1.4", "R4.1"] },
+        { "screen": "END", "action": "Module complete.", "system": "Shows what was finished and any new badge; offers the next module.", "req": ["R1.5", "R7.4"] },
+        { "screen": "06", "action": "Open My progress.", "system": "Shows modules done, quiz average, time building, steps finished, badges and module log.", "req": ["R2.3", "R2.4"] }
+      ],
+      "outcome": "The module is complete, saved, and visible to the teacher."
+    },
+    {
+      "id": "P3", "name": "Save and resume", "actor": "Student",
+      "trigger": "Any change to progress.",
+      "steps": [
+        { "screen": "03–05b", "action": "Finish a step, run a program, check an answer, write a reflection.", "system": "Writes the change to the learning store at once.", "req": ["R2.1"] },
+        { "screen": "02", "action": "Sign out and sign back in, or close the tab.", "system": "Restores the current step, program, variable value, quiz answers and reflection draft.", "req": ["R2.2"] }
+      ],
+      "outcome": "No work is lost between sessions."
+    },
+    {
+      "id": "P4", "name": "Event capture to dashboard", "actor": "System",
+      "trigger": "A student acts inside a module (dashed arrow on the user flow).",
+      "steps": [
+        { "screen": "04 / 05", "action": "Activity runs and quiz checks happen.", "system": "Each is logged as an analytics event with user, module, step, result and time.", "req": ["R4.1", "R4.2"] },
+        { "screen": "07", "action": "Teacher opens the dashboard.", "system": "Recomputes tiles, support list, activity chart and module progress from events and progress.", "req": ["R5.1", "R5.2", "R5.3", "R5.4"] }
+      ],
+      "outcome": "The teacher's view reflects what students did, with no manual reporting."
+    },
+    {
+      "id": "P5", "name": "Find and support a student", "actor": "Teacher",
+      "trigger": "Needs support count is above zero.",
+      "steps": [
+        { "screen": "07", "action": "Scan Who needs support.", "system": "Lists students flagged by the support rules with the reason.", "req": ["R5.2"] },
+        { "screen": "08", "action": "Press View.", "system": "Opens student detail: chips, module table, reflections, suggested next step.", "req": ["R5.5", "R5.6"] },
+        { "screen": "07", "action": "Sort the roster to compare students.", "system": "Sorts by name, progress, quiz average or last active.", "req": ["R5.7"] }
+      ],
+      "outcome": "The teacher knows who to help first and what to do next."
+    },
+    {
+      "id": "P6", "name": "Assignment lifecycle", "actor": "Teacher",
+      "trigger": "Teacher opens Assign pathways.",
+      "steps": [
+        { "screen": "09", "action": "Choose a published pathway, a due date and an optional note.", "system": "Validates the form.", "req": ["R7.1"] },
+        { "screen": "09", "action": "Assign to the class.", "system": "Adds it to Current assignments and to each student's home.", "req": ["R7.2", "R7.3"] },
+        { "screen": "02", "action": "Student sees the assignment banner with due date.", "system": "Marks due soon or overdue.", "req": ["R7.3"] },
+        { "screen": "09", "action": "Track finished count or remove.", "system": "Shows X / class size finished; removal asks to confirm.", "req": ["R7.4", "R7.5"] }
+      ],
+      "outcome": "Students know what to work on and by when."
+    },
+    {
+      "id": "P7", "name": "Preview content", "actor": "Teacher, Admin",
+      "trigger": "Teacher opens Preview content.",
+      "steps": [
+        { "screen": "03–05", "action": "Open any module step.", "system": "Runs the same lesson, activity and quiz in preview mode.", "req": ["R8.1"] },
+        { "screen": "03–05", "action": "Try the activity and quiz.", "system": "Nothing is saved and no events are logged.", "req": ["R8.2"] }
+      ],
+      "outcome": "Teachers can check content before assigning it."
+    },
+    {
+      "id": "P8", "name": "User provisioning", "actor": "Admin",
+      "trigger": "A new teacher or student joins.",
+      "steps": [
+        { "screen": "10", "action": "Fill in Add a user.", "system": "Checks the email domain matches the role and the email is not already on the roster.", "req": ["R9.3", "R9.4"] },
+        { "screen": "10", "action": "Change role, class or active state on a row.", "system": "Saves at once; an admin cannot demote or turn off their own account.", "req": ["R9.1", "R9.2"] },
+        { "screen": "01", "action": "The new person signs in.", "system": "Adding someone lets them sign in; turning them off blocks sign-in.", "req": ["R6.4"] }
+      ],
+      "outcome": "The roster matches the school, and only rostered people can sign in."
+    },
+    {
+      "id": "P9", "name": "Course publishing and system report", "actor": "Admin",
+      "trigger": "Admin opens Courses.",
+      "steps": [
+        { "screen": "11", "action": "Publish or hide a course.", "system": "Hidden courses disappear for students and from the assign list; existing assignments are flagged.", "req": ["R10.1", "R10.2"] },
+        { "screen": "11", "action": "Read the system report.", "system": "Shows users, learning store rows, analytics events, published courses and events by type.", "req": ["R10.3"] }
+      ],
+      "outcome": "The admin controls what content is live and can see platform health."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1", "title": "Lessons", "priority": "Must", "screens": ["03", "05b", "END"],
+      "summary": "Each module is five steps: two lesson steps, a robot activity, a quick check and a reflection.",
+      "items": [
+        { "id": "R1.1", "text": "Lesson steps render the module's section heading and body from modules.json, including code blocks, lists, quotes and bold text.", "acceptance": "Step 1 shows section s1 and step 2 shows section s2 for every module.", "impl": "js/content.js, js/student.js" },
+        { "id": "R1.2", "text": "A stepper shows all five steps with done, current and locked states. Done steps can be revisited.", "acceptance": "Locked steps cannot be opened; finished steps show a check.", "impl": "js/student.js" },
+        { "id": "R1.3", "text": "\"Ask yourself\" and \"Tip\" paragraphs are pulled out as callouts; a key-idea panel shows the module's learning outcomes.", "acceptance": "Callouts appear on lesson steps where the JSON has them.", "impl": "js/content.js" },
+        { "id": "R1.4", "text": "The Reflect step shows the module assignment instructions and a reflection box that needs at least 20 characters to finish.", "acceptance": "Finish module stays disabled until the reflection is long enough.", "impl": "js/student.js" },
+        { "id": "R1.5", "text": "Module complete shows the quiz score, any new badges and a button to the next module in the pathway (user flow: next module).", "acceptance": "The next module opens at step 1.", "impl": "js/student.js" }
+      ]
+    },
+    {
+      "id": "R2", "title": "Saved progress", "priority": "Must", "screens": ["02", "06", "M1"],
+      "summary": "Everything a student does is saved and restored.",
+      "items": [
+        { "id": "R2.1", "text": "Step completion, activity program and variable value, quiz answers, reflection text and time spent are saved as they change.", "acceptance": "Reloading the page restores the same state.", "impl": "js/store.js" },
+        { "id": "R2.2", "text": "Student home shows a Pick up where you left off card with module, step and progress bar, opening the first unfinished step.", "acceptance": "Continue opens the exact step shown on the card.", "impl": "js/student.js" },
+        { "id": "R2.3", "text": "My progress shows modules done, quiz average, time building and steps finished.", "acceptance": "Numbers match the module log.", "impl": "js/student.js, js/analytics.js" },
+        { "id": "R2.4", "text": "Badges are earned from saved activity (first run, flag finder, bug squasher, sharp eye, pathway complete).", "acceptance": "Earned badges are filled; others are outlined with how to earn them.", "impl": "js/analytics.js" },
+        { "id": "R2.5", "text": "Pathway cards show a completion ring and each module's state with Review, Continue or Start.", "acceptance": "Ring percent equals finished steps over total steps in the pathway.", "impl": "js/student.js" }
+      ]
+    },
+    {
+      "id": "R3", "title": "Instant feedback", "priority": "Must", "screens": ["04", "05", "M2"],
+      "summary": "Students learn from every run and every answer.",
+      "items": [
+        { "id": "R3.1", "text": "The robot grid is 6 x 6 (columns A–F left to right, rows 1–6 bottom to top) with shelves, a flag and the robot's heading.", "acceptance": "Grid matches the activity's start, goal and shelves in activities.json.", "impl": "js/robot.js" },
+        { "id": "R3.2", "text": "Students tap blocks to add them, remove them with ×, set the variable or repeat count with – and +, and cannot exceed the block limit.", "acceptance": "Palette disables at the limit; counter shows used / limit.", "impl": "js/activities.js" },
+        { "id": "R3.3", "text": "Run animates the robot move by move and ends with one of: flag reached (with block count and variable value), crash (\"Bonk! Shelf at D3 on move 7.\"), off the mat, or stopped short (where it stopped and where the flag is).", "acceptance": "Each outcome shows its own message; Next unlocks only after the flag is reached.", "impl": "js/robot.js, js/activities.js" },
+        { "id": "R3.4", "text": "Each quiz question has its own Check answer. The JSON feedback text appears at once; correct and incorrect choices are coloured; a hint is available before checking.", "acceptance": "A wrong check can be retried; the score uses first tries.", "impl": "js/activities.js" },
+        { "id": "R3.5", "text": "Submit quiz is disabled until every question has been checked, with a count of questions left.", "acceptance": "Counter reads \"N questions left to check\".", "impl": "js/activities.js" },
+        { "id": "R3.6", "text": "Ordering and matching activities (modules 3, 4, 6) give per-item feedback explaining why each item belongs where it does.", "acceptance": "Misplaced items are marked and the explanation shows after a correct check.", "impl": "js/activities.js" }
+      ]
+    },
+    {
+      "id": "R4", "title": "Activity and quiz events", "priority": "Must", "screens": ["04", "05", "00"],
+      "summary": "Student actions become analytics events that feed the teacher dashboard.",
+      "items": [
+        { "id": "R4.1", "text": "Log events: sign_in, step_complete, activity_run (pass/fail and reason), quiz_check (correct or not), quiz_submit (score), reflection_submit, module_complete.", "acceptance": "Each event stores user, class, module, step, result and timestamp.", "impl": "js/store.js" },
+        { "id": "R4.2", "text": "Preview mode and seeded demo data never mix: preview logs nothing.", "acceptance": "Events count is unchanged after a teacher preview.", "impl": "js/store.js" }
+      ]
+    },
+    {
+      "id": "R5", "title": "Class dashboard", "priority": "Must", "screens": ["07", "08", "M3"],
+      "summary": "Teachers see who needs a hand.",
+      "items": [
+        { "id": "R5.1", "text": "Tiles: Participating (students with activity in the last 7 days / class size), Progressing (average completion of assigned pathways), Quiz average, Needs support (highlighted).", "acceptance": "Tiles recompute when students act.", "impl": "js/analytics.js, js/teacher.js" },
+        { "id": "R5.2", "text": "Needs support rule: quiz average under 50%, or 3+ failed tries in a row, or no activity for 7+ days. The list shows the reason in words.", "acceptance": "Kofi Mensah and Diego Santos appear with their reasons in the demo data.", "impl": "js/analytics.js" },
+        { "id": "R5.3", "text": "Class activity chart: events per day for the last 14 days, today in the accent colour, with exact values on hover or focus.", "acceptance": "Bars are drawn to one scale with a labelled axis.", "impl": "js/teacher.js" },
+        { "id": "R5.4", "text": "Progress by module: per module, students done (dark) and in progress (accent) out of the class size.", "acceptance": "Counts read \"5/12\" style.", "impl": "js/teacher.js" },
+        { "id": "R5.5", "text": "Student detail dialog: status chips, module table (status and quiz), reflections and a suggested next step.", "acceptance": "Escape and × close the dialog; focus returns to the View button.", "impl": "js/teacher.js" },
+        { "id": "R5.6", "text": "Suggested next step is rule-based: re-teach the lowest-scoring module, unblock a stuck activity, or check in after inactivity.", "acceptance": "Text names the module and the step.", "impl": "js/analytics.js" },
+        { "id": "R5.7", "text": "Class selector switches between the teacher's classes; the roster table is sortable and each row opens student detail.", "acceptance": "Sorting toggles ascending and descending.", "impl": "js/teacher.js" }
+      ]
+    },
+    {
+      "id": "R6", "title": "Sign-in and roles", "priority": "Must", "screens": ["01"],
+      "summary": "Only rostered school accounts sign in, and each sees their role's screens.",
+      "items": [
+        { "id": "R6.1", "text": "Role toggle: Student or Teacher or admin.", "acceptance": "Hint text shows the expected domain.", "impl": "js/auth.js" },
+        { "id": "R6.2", "text": "Continue with Google (simulated in the prototype by an email field and demo account picker).", "acceptance": "Valid accounts sign in with one action.", "impl": "js/auth.js" },
+        { "id": "R6.3", "text": "Sign-in refused messages name the account and the fix: wrong domain, not on the roster, turned off, or wrong role tab.", "acceptance": "dana.home@gmail.com on the staff tab shows the wireframe's message.", "impl": "js/auth.js" },
+        { "id": "R6.4", "text": "Adding a user lets them sign in; turning a user off blocks sign-in.", "acceptance": "Owen Brooks (turned off in the demo) is refused.", "impl": "js/auth.js, js/admin.js" },
+        { "id": "R6.5", "text": "Role routing and navigation: student (Home, Pathways, My progress), teacher (Class dashboard, Assign pathways, Preview content), admin (Users & roles, Courses, System report, Class dashboard).", "acceptance": "A role cannot open another role's screens.", "impl": "js/app.js" }
+      ]
+    },
+    {
+      "id": "R7", "title": "Assign pathways", "priority": "Must", "screens": ["09", "02"],
+      "summary": "Teachers assign whole pathways to a class with a due date.",
+      "items": [
+        { "id": "R7.1", "text": "Form: pathway (published only, with module count), due date (today or later), note to students.", "acceptance": "Invalid forms show an inline message.", "impl": "js/teacher.js" },
+        { "id": "R7.2", "text": "Assign adds the assignment to Current assignments for that class. A pathway can be assigned once per class.", "acceptance": "Duplicate assignment is refused with a message.", "impl": "js/teacher.js" },
+        { "id": "R7.3", "text": "Students see assigned pathways on Student home with the due date, the note, and a due soon or overdue state.", "acceptance": "Banner matches the teacher's assignment.", "impl": "js/student.js" },
+        { "id": "R7.4", "text": "Current assignments show students finished / class size with a bar.", "acceptance": "Count rises when a student completes the pathway's last module.", "impl": "js/teacher.js" },
+        { "id": "R7.5", "text": "Remove asks for confirmation in the page before deleting.", "acceptance": "Cancel leaves the assignment in place.", "impl": "js/teacher.js" }
+      ]
+    },
+    {
+      "id": "R8", "title": "Preview content", "priority": "Should", "screens": ["03–05"],
+      "summary": "Teachers and admins can walk through any module.",
+      "items": [
+        { "id": "R8.1", "text": "Preview lists every pathway and module (hidden ones marked) and opens any step directly.", "acceptance": "All five steps are unlocked in preview.", "impl": "js/teacher.js, js/student.js" },
+        { "id": "R8.2", "text": "A banner states that preview saves nothing.", "acceptance": "Progress and events are unchanged after preview.", "impl": "js/student.js" }
+      ]
+    },
+    {
+      "id": "R9", "title": "Users & roles", "priority": "Must", "screens": ["10"],
+      "summary": "Admins manage the roster.",
+      "items": [
+        { "id": "R9.1", "text": "Table: name, school email, role, class, active. Role and class change from dropdowns; active from a toggle.", "acceptance": "Changes save at once with a confirmation toast.", "impl": "js/admin.js" },
+        { "id": "R9.2", "text": "An admin cannot change their own role or turn off their own account.", "acceptance": "Own role select and toggle are disabled.", "impl": "js/admin.js" },
+        { "id": "R9.3", "text": "Add a user: full name, school email, role, class. Students need @students.lincolnms.org; staff need @lincolnms.org.", "acceptance": "A mismatched domain shows an inline error.", "impl": "js/admin.js" },
+        { "id": "R9.4", "text": "Emails are unique on the roster.", "acceptance": "Duplicate email is refused.", "impl": "js/admin.js" }
+      ]
+    },
+    {
+      "id": "R10", "title": "Courses & system report", "priority": "Must", "screens": ["11"],
+      "summary": "Admins control which courses are live and see platform totals.",
+      "items": [
+        { "id": "R10.1", "text": "Each course (pathway) has a Published / Hidden toggle.", "acceptance": "Engineering Design starts hidden in the demo.", "impl": "js/admin.js" },
+        { "id": "R10.2", "text": "Hidden courses are removed from student views and the assign list; existing assignments are flagged for the teacher.", "acceptance": "Hiding Programming Fundamentals removes it from Maya's home.", "impl": "js/student.js, js/teacher.js" },
+        { "id": "R10.3", "text": "System report: users, learning store rows, analytics events, published courses, and events by type.", "acceptance": "Totals change as people use the platform.", "impl": "js/admin.js, js/analytics.js" }
+      ]
+    },
+    {
+      "id": "R11", "title": "Phone layouts", "priority": "Must", "screens": ["M1", "M2", "M3"],
+      "summary": "Every screen works at 390 px wide.",
+      "items": [
+        { "id": "R11.1", "text": "Side navigation becomes a tab row under the header.", "acceptance": "Matches M1 and M3.", "impl": "css/layout.css" },
+        { "id": "R11.2", "text": "Robot activity stacks grid, program, variable, palette and run controls, with Back and Next fixed at the bottom.", "acceptance": "Matches M2; no sideways scrolling.", "impl": "css/robot.css, css/layout.css" },
+        { "id": "R11.3", "text": "Dashboard tiles go to a 2 x 2 grid; tables scroll inside their own container.", "acceptance": "Matches M3.", "impl": "css/screens.css" }
+      ]
+    },
+    {
+      "id": "R12", "title": "Accessibility and quality", "priority": "Should", "screens": ["All"],
+      "summary": "Usable by keyboard, readable, and respectful of motion settings.",
+      "items": [
+        { "id": "R12.1", "text": "All controls reachable by keyboard with a visible focus ring; dialogs trap focus and close on Escape.", "acceptance": "The full student loop can be finished with the keyboard.", "impl": "js/ui.js" },
+        { "id": "R12.2", "text": "Feedback is announced to screen readers through a live region and never relies on colour alone.", "acceptance": "Correct and incorrect states also show text and icons.", "impl": "js/ui.js" },
+        { "id": "R12.3", "text": "Robot animation respects reduced motion; light and dark themes are both supported.", "acceptance": "With reduced motion the robot jumps to each square.", "impl": "js/robot.js, css/tokens.css" }
+      ]
+    }
+  ],
+  "screens": [
+    { "id": "01", "name": "Sign in", "role": "All", "notes": ["1 Role toggle", "2 Sign-in refused message", "3 Continue with Google", "4 Hero illustration of the robot grid"] },
+    { "id": "02", "name": "Student home", "role": "Student", "notes": ["1 Pick up where you left off", "2 Teacher assignment with due date", "3 Pathway completion ring", "4 Module rows with Review / Continue / Start"] },
+    { "id": "03", "name": "Lesson step", "role": "Student", "notes": ["1 Five-step stepper", "2 Code example", "3 Next saves the step", "4 Key idea panel"] },
+    { "id": "04", "name": "Robot grid activity", "role": "Student", "notes": ["1 Grid with shelves, flag, robot", "2 Program with block limit", "3 Variable stepper", "4 Instant feedback", "5 Run, Reset robot, Clear"] },
+    { "id": "05", "name": "Quiz with feedback", "role": "Student", "notes": ["1 Per-question feedback", "2 Selected answer", "3 Check answer and hint", "4 Submit when all checked"] },
+    { "id": "05b", "name": "Reflect", "role": "Student", "notes": ["Assignment instructions and reflection box"] },
+    { "id": "END", "name": "Module complete", "role": "Student", "notes": ["Score, badges, next module"] },
+    { "id": "06", "name": "My progress", "role": "Student", "notes": ["1 Stat tiles", "2 Badges", "3 Module log"] },
+    { "id": "07", "name": "Class dashboard", "role": "Teacher, Admin", "notes": ["1 KPI tiles", "2 Who needs support", "3 Class activity chart", "4 Progress by module", "5 Class selector"] },
+    { "id": "08", "name": "Student detail", "role": "Teacher, Admin", "notes": ["1 Status chips", "2 Module table", "3 Reflections", "4 Suggested next step"] },
+    { "id": "09", "name": "Assign pathways", "role": "Teacher", "notes": ["1 New assignment form", "2 Current assignments", "3 Assign button"] },
+    { "id": "10", "name": "Users & roles", "role": "Admin", "notes": ["1 Role select (own locked)", "2 Active toggle", "3 Email domain check", "4 Add user"] },
+    { "id": "11", "name": "Courses & system report", "role": "Admin", "notes": ["1 Publish toggles", "2 System report"] }
+  ],
+  "events": [
+    { "type": "sign_in", "when": "A person signs in", "fields": "userId, role" },
+    { "type": "step_complete", "when": "Next on a lesson step, or a step is finished", "fields": "userId, classId, moduleId, step" },
+    { "type": "activity_run", "when": "Run program or Check in an activity", "fields": "moduleId, result (pass | crash | edge | short | wrong), detail, blocks" },
+    { "type": "quiz_check", "when": "Check answer on one question", "fields": "moduleId, questionId, correct, firstTry" },
+    { "type": "quiz_submit", "when": "Submit quiz", "fields": "moduleId, score" },
+    { "type": "reflection_submit", "when": "Finish module on Reflect", "fields": "moduleId, length" },
+    { "type": "module_complete", "when": "All five steps finished", "fields": "moduleId" }
+  ],
+  "rules": [
+    { "name": "Participating", "rule": "Student has at least one event in the last 7 days." },
+    { "name": "Progressing", "rule": "Average, over students, of finished steps / total steps across the class's visible assigned pathways." },
+    { "name": "Quiz score", "rule": "Share of questions answered correctly on the first check." },
+    { "name": "Needs support", "rule": "Quiz average under 50%, or 3 or more failed tries in a row (activity runs or quiz checks), or no activity for 7 or more days." },
+    { "name": "Failed tries in a row", "rule": "Count back from the newest activity_run or quiz_check event until a success." },
+    { "name": "Hidden course", "rule": "Not shown to students and not assignable. Existing assignments stay and are flagged for the teacher." },
+    { "name": "Email domains", "rule": "Students: @students.lincolnms.org. Teachers and admins: @lincolnms.org." }
+  ],
+  "data": [
+    { "file": "data/modules.json", "holds": "Module content: outcomes, sections, assignment, quiz bank (supplied)." },
+    { "file": "data/pathways.json", "holds": "Pathways, module order, step names, badges." },
+    { "file": "data/activities.json", "holds": "Robot grid, ordering and matching activity set-ups." },
+    { "file": "data/school.json", "holds": "School, classes, roster, assignments and demo seed." },
+    { "file": "data/requirements.json", "holds": "This requirements map." }
+  ]
+}

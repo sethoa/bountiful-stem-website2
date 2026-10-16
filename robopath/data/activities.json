@@ -1,0 +1,82 @@
+{
+  "m01-variables-robot-memory": {
+    "type": "grid",
+    "title": "Try it: set the variable",
+    "brief": "The robot starts on A1 facing north. Reach the flag on E5 using no more than 3 blocks. Shelves block C1, C3, D3 and E2.",
+    "start": "A1",
+    "facing": "N",
+    "goal": "E5",
+    "shelves": ["C1", "C3", "D3", "E2"],
+    "blockLimit": 3,
+    "palette": ["forward(steps)", "turnLeft()", "turnRight()"],
+    "variable": { "name": "steps", "initial": 1, "min": 1, "max": 6 },
+    "loop": null,
+    "starterProgram": ["forward(steps)", "turnRight()"]
+  },
+  "m02-loops-do-it-again": {
+    "type": "grid",
+    "title": "Try it: climb the stairs",
+    "brief": "The robot starts on A1 facing north. Climb the staircase to the flag on D4. Build the loop body with no more than 4 blocks, then set the repeat count.",
+    "start": "A1",
+    "facing": "N",
+    "goal": "D4",
+    "shelves": ["B1", "C1", "C2", "D1", "D2", "D3", "A3", "A4", "B4"],
+    "blockLimit": 4,
+    "palette": ["forward(1)", "turnLeft()", "turnRight()"],
+    "variable": null,
+    "loop": { "initial": 1, "min": 1, "max": 6 },
+    "starterProgram": ["forward(1)", "turnRight()"]
+  },
+  "m03-algorithms-step-by-step": {
+    "type": "order",
+    "title": "Try it: order the delivery algorithm",
+    "brief": "A line-following robot must deliver a package to a shelf and come back. Move the steps into the order the robot should run them, then check.",
+    "items": [
+      { "text": "Calibrate the light sensor on black and white", "why": "The robot cannot follow the line until its sensor knows what black and white look like." },
+      { "text": "Drive along the black line", "why": "With a calibrated sensor, the robot can now follow the line toward the shelf." },
+      { "text": "Stop at the shelf", "why": "The robot has to be at the shelf before it lets go of anything." },
+      { "text": "Release the package", "why": "Now the package lands on the shelf instead of the start line." },
+      { "text": "Turn around and drive back to the start", "why": "The delivery is done, so the robot can return." }
+    ],
+    "shuffled": [3, 1, 0, 4, 2]
+  },
+  "m04-sensors-how-robots-notice": {
+    "type": "match",
+    "title": "Try it: match the sensor to the job",
+    "brief": "Pick the best sensor for each robot job. Name what you need to know first, then choose the sensor that measures it.",
+    "options": ["Ultrasonic", "Light / color", "Touch", "Gyro"],
+    "jobs": [
+      { "job": "Stop 10 cm before the wall", "answer": "Ultrasonic", "why": "Ultrasonic measures distance in centimetres by timing an echo." },
+      { "job": "Follow a black line on a white mat", "answer": "Light / color", "why": "The light sensor reads about 8 over black tape and about 85 over the white mat." },
+      { "job": "Know the bumper has reached the shelf", "answer": "Touch", "why": "The touch sensor reports pressed or released." },
+      { "job": "Turn exactly 90 degrees", "answer": "Gyro", "why": "The gyro measures how far the robot has turned, in degrees." }
+    ]
+  },
+  "m05-challenge-warehouse-run": {
+    "type": "grid",
+    "title": "Try it: the warehouse run",
+    "brief": "Cross the warehouse from A1 (facing north) to the loading dock on F6. Shelves block B1 to B4 and D3 to D6. Stay within 14 blocks.",
+    "start": "A1",
+    "facing": "N",
+    "goal": "F6",
+    "shelves": ["B1", "B2", "B3", "B4", "D3", "D4", "D5", "D6"],
+    "blockLimit": 14,
+    "palette": ["forward(1)", "forward(steps)", "turnLeft()", "turnRight()"],
+    "variable": { "name": "steps", "initial": 4, "min": 1, "max": 6 },
+    "loop": null,
+    "starterProgram": ["forward(steps)", "turnRight()"]
+  },
+  "m06-the-design-loop": {
+    "type": "order",
+    "title": "Try it: order the design loop",
+    "brief": "Emma's team is building a ping-pong ball gripper. Put the five stages of their project in order, then check.",
+    "items": [
+      { "text": "Ask: the ball is 40 mm wide, weighs 2.7 g, and must be lifted 10 cm", "why": "Ask comes first: state the problem and its limits before any ideas." },
+      { "text": "Imagine: sketch three different gripper ideas", "why": "Brainstorm many ideas before choosing one." },
+      { "text": "Plan: pick the claw idea, draw it and list the parts", "why": "Plan turns one chosen idea into a drawing and a parts list." },
+      { "text": "Create: build a cardboard and servo prototype", "why": "Create builds the plan. It does not need to be pretty." },
+      { "text": "Test and improve: 7 of 10 lifts worked, so widen the claw by 5 mm", "why": "Test, change one thing, and test again." }
+    ],
+    "shuffled": [2, 4, 0, 3, 1]
+  }
+}

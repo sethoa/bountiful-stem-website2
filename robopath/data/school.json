@@ -1,0 +1,380 @@
+{
+  "school": {
+    "name": "Lincoln Middle School",
+    "grades": "Grades 6–8",
+    "term": "Fall 2026",
+    "staffDomain": "lincolnms.org",
+    "studentDomain": "students.lincolnms.org",
+    "adminContact": "s.patel@lincolnms.org"
+  },
+  "classes": [
+    {
+      "classId": "7-P3",
+      "label": "7-P3",
+      "term": "Fall 2026",
+      "teacherId": "u-dana"
+    },
+    {
+      "classId": "8-P1",
+      "label": "8-P1",
+      "term": "Fall 2026",
+      "teacherId": "u-dana"
+    }
+  ],
+  "users": [
+    {
+      "userId": "u-sam",
+      "name": "Sam Patel",
+      "email": "s.patel@lincolnms.org",
+      "role": "admin",
+      "classId": null,
+      "active": true
+    },
+    {
+      "userId": "u-dana",
+      "name": "Dana Okafor",
+      "email": "d.okafor@lincolnms.org",
+      "role": "teacher",
+      "classId": "7-P3",
+      "active": true
+    },
+    {
+      "userId": "u-maya",
+      "name": "Maya Chen",
+      "email": "maya.chen@students.lincolnms.org",
+      "role": "student",
+      "classId": "7-P3",
+      "active": true
+    },
+    {
+      "userId": "u-kofi",
+      "name": "Kofi Mensah",
+      "email": "kofi.mensah@students.lincolnms.org",
+      "role": "student",
+      "classId": "7-P3",
+      "active": true
+    },
+    {
+      "userId": "u-diego",
+      "name": "Diego Santos",
+      "email": "diego.santos@students.lincolnms.org",
+      "role": "student",
+      "classId": "7-P3",
+      "active": true
+    },
+    {
+      "userId": "u-priya",
+      "name": "Priya Nair",
+      "email": "priya.nair@students.lincolnms.org",
+      "role": "student",
+      "classId": "7-P3",
+      "active": true
+    },
+    {
+      "userId": "u-leo",
+      "name": "Leo Martin",
+      "email": "leo.martin@students.lincolnms.org",
+      "role": "student",
+      "classId": "7-P3",
+      "active": true
+    },
+    {
+      "userId": "u-zoe",
+      "name": "Zoe Park",
+      "email": "zoe.park@students.lincolnms.org",
+      "role": "student",
+      "classId": "7-P3",
+      "active": true
+    },
+    {
+      "userId": "u-ravi",
+      "name": "Ravi Shah",
+      "email": "ravi.shah@students.lincolnms.org",
+      "role": "student",
+      "classId": "7-P3",
+      "active": true
+    },
+    {
+      "userId": "u-aisha",
+      "name": "Aisha Bello",
+      "email": "aisha.bello@students.lincolnms.org",
+      "role": "student",
+      "classId": "7-P3",
+      "active": true
+    },
+    {
+      "userId": "u-mateo",
+      "name": "Mateo Rossi",
+      "email": "mateo.rossi@students.lincolnms.org",
+      "role": "student",
+      "classId": "7-P3",
+      "active": true
+    },
+    {
+      "userId": "u-emma",
+      "name": "Emma Novak",
+      "email": "emma.novak@students.lincolnms.org",
+      "role": "student",
+      "classId": "7-P3",
+      "active": true
+    },
+    {
+      "userId": "u-noah",
+      "name": "Noah Kim",
+      "email": "noah.kim@students.lincolnms.org",
+      "role": "student",
+      "classId": "7-P3",
+      "active": true
+    },
+    {
+      "userId": "u-ivy",
+      "name": "Ivy Turner",
+      "email": "ivy.turner@students.lincolnms.org",
+      "role": "student",
+      "classId": "7-P3",
+      "active": true
+    },
+    {
+      "userId": "u-sofia",
+      "name": "Sofia Alvarez",
+      "email": "sofia.alvarez@students.lincolnms.org",
+      "role": "student",
+      "classId": "8-P1",
+      "active": true
+    },
+    {
+      "userId": "u-ben",
+      "name": "Ben Carter",
+      "email": "ben.carter@students.lincolnms.org",
+      "role": "student",
+      "classId": "8-P1",
+      "active": true
+    },
+    {
+      "userId": "u-hana",
+      "name": "Hana Sato",
+      "email": "hana.sato@students.lincolnms.org",
+      "role": "student",
+      "classId": "8-P1",
+      "active": true
+    },
+    {
+      "userId": "u-owen",
+      "name": "Owen Brooks",
+      "email": "owen.brooks@students.lincolnms.org",
+      "role": "student",
+      "classId": "8-P1",
+      "active": false
+    }
+  ],
+  "assignments": [
+    {
+      "assignmentId": "as-1",
+      "classId": "7-P3",
+      "pathwayId": "programming-fundamentals",
+      "due": "2026-10-23",
+      "note": "Finish before Thursday's build day.",
+      "createdDaysAgo": 12
+    },
+    {
+      "assignmentId": "as-2",
+      "classId": "7-P3",
+      "pathwayId": "engineering-design",
+      "due": "2026-11-06",
+      "note": "",
+      "createdDaysAgo": 3
+    },
+    {
+      "assignmentId": "as-3",
+      "classId": "8-P1",
+      "pathwayId": "programming-fundamentals",
+      "due": "2026-10-30",
+      "note": "",
+      "createdDaysAgo": 9
+    }
+  ],
+  "seedNote": "Each seed entry describes where a student is today. The app expands it into progress records and analytics events spread over the last two weeks. stepsDone counts finished steps (5 means done); quiz is the first-try score; lastActiveDaysAgo places the newest event; failStreak adds failed tries at the end.",
+  "seed": {
+    "u-maya": {
+      "lastActiveDaysAgo": 0,
+      "modules": {
+        "m03": {
+          "stepsDone": 5,
+          "quiz": 100
+        },
+        "m04": {
+          "stepsDone": 5,
+          "quiz": 67
+        },
+        "m01": {
+          "stepsDone": 2
+        }
+      }
+    },
+    "u-kofi": {
+      "lastActiveDaysAgo": 1,
+      "failStreak": 4,
+      "modules": {
+        "m03": {
+          "stepsDone": 5,
+          "quiz": 33
+        },
+        "m01": {
+          "stepsDone": 2
+        }
+      }
+    },
+    "u-diego": {
+      "lastActiveDaysAgo": 8,
+      "modules": {
+        "m01": {
+          "stepsDone": 5,
+          "quiz": 67
+        }
+      }
+    },
+    "u-priya": {
+      "lastActiveDaysAgo": 0,
+      "modules": {
+        "m01": {
+          "stepsDone": 5,
+          "quiz": 100
+        },
+        "m02": {
+          "stepsDone": 5,
+          "quiz": 100
+        },
+        "m03": {
+          "stepsDone": 3
+        }
+      }
+    },
+    "u-leo": {
+      "lastActiveDaysAgo": 2,
+      "modules": {
+        "m01": {
+          "stepsDone": 5,
+          "quiz": 67
+        },
+        "m02": {
+          "stepsDone": 2
+        }
+      }
+    },
+    "u-zoe": {
+      "lastActiveDaysAgo": 1,
+      "modules": {
+        "m01": {
+          "stepsDone": 5,
+          "quiz": 100
+        },
+        "m02": {
+          "stepsDone": 5,
+          "quiz": 67
+        },
+        "m04": {
+          "stepsDone": 2
+        }
+      }
+    },
+    "u-ravi": {
+      "lastActiveDaysAgo": 3,
+      "modules": {
+        "m01": {
+          "stepsDone": 3
+        }
+      }
+    },
+    "u-aisha": {
+      "lastActiveDaysAgo": 0,
+      "modules": {
+        "m01": {
+          "stepsDone": 5,
+          "quiz": 100
+        },
+        "m02": {
+          "stepsDone": 5,
+          "quiz": 100
+        },
+        "m05": {
+          "stepsDone": 2
+        }
+      }
+    },
+    "u-mateo": {
+      "lastActiveDaysAgo": 5,
+      "modules": {
+        "m01": {
+          "stepsDone": 5,
+          "quiz": 67
+        },
+        "m02": {
+          "stepsDone": 1
+        }
+      }
+    },
+    "u-emma": {
+      "lastActiveDaysAgo": 4,
+      "modules": {
+        "m01": {
+          "stepsDone": 5,
+          "quiz": 100
+        },
+        "m02": {
+          "stepsDone": 5,
+          "quiz": 67
+        }
+      }
+    },
+    "u-noah": {
+      "lastActiveDaysAgo": 6,
+      "modules": {
+        "m01": {
+          "stepsDone": 1
+        }
+      }
+    },
+    "u-sofia": {
+      "lastActiveDaysAgo": 1,
+      "modules": {
+        "m01": {
+          "stepsDone": 5,
+          "quiz": 100
+        }
+      }
+    },
+    "u-ben": {
+      "lastActiveDaysAgo": 2,
+      "modules": {
+        "m01": {
+          "stepsDone": 2
+        }
+      }
+    },
+    "u-hana": {
+      "lastActiveDaysAgo": 6,
+      "modules": {
+        "m03": {
+          "stepsDone": 5,
+          "quiz": 67
+        }
+      }
+    },
+    "u-ivy": {
+      "lastActiveDaysAgo": 3,
+      "modules": {
+        "m01": {
+          "stepsDone": 1
+        }
+      }
+    }
+  },
+  "seedReflections": {
+    "m01": "One forward(steps) block is better because if the flag moves I only change one number. A delivery robot would store how many metres to the next door.",
+    "m02": "The loop body was forward, turn right, forward, turn left. I ran 12 instructions because 4 blocks x 3 repeats is 12. Brushing my teeth is a loop too.",
+    "m03": "If you swap stop and release, the robot drops the package before it gets to the shelf. Packing my bag: check the timetable, get books, get lunch, zip it.",
+    "m04": "To follow a line and stop at a box you need a light sensor for the line and a touch sensor for the box. Our classroom door uses a motion sensor.",
+    "m05": "First run we turned left instead of right at C5 and hit the shelf. We traced it and fixed the turn. We went from 14 blocks to 10 with steps.",
+    "m06": "We spent the most time on Test and improve because the first claw dropped the ball when it was off-centre."
+  }
+}

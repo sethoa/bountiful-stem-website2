@@ -1,0 +1,136 @@
+/* RoboPath tokens. Layout: app shell with header + side nav (tab row on phones), content column max 1100px.
+   Colours follow the wireframe: charcoal ink, cool greys, one orange accent for "attention". */
+:root {
+  --bg: #F3F4F6;
+  --surface: #FFFFFF;
+  --surface-2: #EBEEF1;
+  --ink: #262A31;
+  --ink-2: #4A505A;
+  --muted: #6B727D;
+  --line: #C8CDD4;
+  --line-soft: #DDE1E6;
+  --accent: #D9531A;
+  --accent-ink: #B8440F;
+  --accent-soft: #FBF0EA;
+  --accent-tint: #F6DDD2;
+  --good: #3E7A55;
+  --good-soft: #E5F0E9;
+  --bad: #B3462F;
+  --bad-soft: #F8E4DF;
+  --warn: #8F6A1C;
+  --warn-soft: #F6EDD9;
+  --primary: #262A31;
+  --on-primary: #FFFFFF;
+  --hero: #262A31;
+  --on-hero: #FFFFFF;
+  --on-hero-muted: #AEB4BD;
+  --code-bg: #262A31;
+  --code-ink: #E8EAED;
+  --code-key: #F2A27A;
+  --shadow: 0 1px 2px rgba(38, 42, 49, .06), 0 4px 16px rgba(38, 42, 49, .06);
+  --scrim: rgba(38, 42, 49, .45);
+
+  --font-display: "Lexend", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --fs-xs: .75rem;
+  --fs-sm: .875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.375rem;
+  --fs-2xl: 1.75rem;
+  --fs-3xl: 2.25rem;
+
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-pill: 999px;
+  --header-h: 60px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15171B;
+    --surface: #1E2126;
+    --surface-2: #262A30;
+    --ink: #ECEEF1;
+    --ink-2: #C6CBD2;
+    --muted: #9AA1AC;
+    --line: #3A4049;
+    --line-soft: #2E333A;
+    --accent: #F0703A;
+    --accent-ink: #F58B5C;
+    --accent-soft: #2E211B;
+    --accent-tint: #4A2C1F;
+    --good: #7CC495;
+    --good-soft: #1D3125;
+    --bad: #F08B74;
+    --bad-soft: #3A221D;
+    --warn: #E2B862;
+    --warn-soft: #362C17;
+    --primary: #ECEEF1;
+    --on-primary: #1A1C20;
+    --hero: #262A31;
+    --on-hero: #FFFFFF;
+    --on-hero-muted: #AEB4BD;
+    --code-bg: #0F1114;
+    --code-ink: #E8EAED;
+    --code-key: #F2A27A;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
+    --scrim: rgba(0, 0, 0, .6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15171B;
+  --surface: #1E2126;
+  --surface-2: #262A30;
+  --ink: #ECEEF1;
+  --ink-2: #C6CBD2;
+  --muted: #9AA1AC;
+  --line: #3A4049;
+  --line-soft: #2E333A;
+  --accent: #F0703A;
+  --accent-ink: #F58B5C;
+  --accent-soft: #2E211B;
+  --accent-tint: #4A2C1F;
+  --good: #7CC495;
+  --good-soft: #1D3125;
+  --bad: #F08B74;
+  --bad-soft: #3A221D;
+  --warn: #E2B862;
+  --warn-soft: #362C17;
+  --primary: #ECEEF1;
+  --on-primary: #1A1C20;
+  --hero: #262A31;
+  --on-hero: #FFFFFF;
+  --on-hero-muted: #AEB4BD;
+  --code-bg: #0F1114;
+  --code-ink: #E8EAED;
+  --code-key: #F2A27A;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
+  --scrim: rgba(0, 0, 0, .6);
+  color-scheme: dark;
+}
+
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+*, *::before, *::after { box-sizing: border-box; }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height: 1.2; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+p { margin: 0; }
+button, input, select, textarea { font: inherit; color: inherit; }
+code, pre, .mono { font-family: var(--font-mono); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.num { font-variant-numeric: tabular-nums; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

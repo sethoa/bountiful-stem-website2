@@ -1,0 +1,446 @@
+[
+  {
+    "moduleId": "m01-variables-robot-memory",
+    "title": "Variables: Robot Memory",
+    "learningOutcomes": [
+      "Learners will be able to explain that a variable is a named place in memory that stores a value a program can read and change.",
+      "Learners will be able to predict the value of a variable after a short sequence of assignments and use a variable to control how far a robot moves."
+    ],
+    "sections": [
+      {
+        "sectionId": "s1",
+        "heading": "Scenario: The Robot That Needed Twelve Edits",
+        "body": "Maya's robot has to cross the practice mat. Her first program looks like this.\n\n**Program excerpt**\n\n```\nforward(1)\nforward(1)\nforward(1)\nforward(1)\nturnRight()\nforward(1)\nforward(1)\nforward(1)\nforward(1)\n```\n\nIt works. Then the judges move the flag one square farther away in both directions. Maya now has to add blocks in two places, and she is already near the block limit.\n\nHer teammate Leo says: \"What if the robot could just remember the number of squares, and we changed it in one place?\"\n\nAsk yourself: where in Maya's program is the number 4 hiding? How many places would she have to change if the distance became 5? Keep that in mind as you read the next section."
+      },
+      {
+        "sectionId": "s2",
+        "heading": "How Variables Work",
+        "body": "A **variable** is a labelled box in the robot's memory. You give the box a name and put a value inside it.\n\n```\nlet steps = 4      // make a box called steps, store 4\nforward(steps)     // the robot reads the box and moves 4 squares\n```\n\nWhen the program runs, the robot looks inside the box to find the number. Change the value in one place, and every line that uses `steps` changes with it.\n\n**Variables can change while the program runs.** That is why they are called variables.\n\n```\nlet laps = 0\nlaps = laps + 1     // laps is now 1\nlaps = laps + 1     // laps is now 2\n```\n\n- Read the right side first: take what is in `laps` and add 1.\n- Then store the answer back into `laps`.\n\n**Tip:** Good names describe what is inside the box: `steps`, `lapsDone`, `batteryLevel`. A name like `x` tells a teammate nothing.\n\n**Maya's program, rewritten**\n\n```\nlet steps = 4\nforward(steps)\nturnRight()\nforward(steps)\n```\n\nNine blocks became three. When the flag moves, Maya changes one number."
+      }
+    ],
+    "assignments": [
+      {
+        "assignmentId": "a1",
+        "title": "Program the Robot with One Variable",
+        "instructions": "Open the robot grid activity for this module. The robot starts on square A1 facing north. The flag is on square E5. Shelves block squares C1, C3, D3 and E2.\n\n1. Before you add any blocks, trace the route with your finger and count the squares to the first turn. Write that number down.\n2. Build a program that reaches the flag using **no more than 3 blocks**. You may use `forward(steps)`, `turnLeft()` and `turnRight()`.\n3. Set the value of `steps` and run the program. If the robot stops short or hits a shelf, read the feedback, change **one** thing, and run it again.\n4. In two or three sentences, explain why one `forward(steps)` block is better here than several `forward(1)` blocks.\n5. Describe one real robot (for example a vacuum robot or a delivery robot) and one value it would need to store in a variable."
+      }
+    ],
+    "quizBank": [
+      {
+        "questionId": "q1",
+        "prompt": "A robot runs `let speed = 3` and then `speed = speed + 2`. What is stored in `speed` now?",
+        "options": [
+          "3",
+          "5",
+          "2",
+          "32"
+        ],
+        "correctAnswer": "5",
+        "feedback": {
+          "correct": "Correct. The right side is worked out first: 3 + 2 = 5. Then 5 is stored back into the box called `speed`.",
+          "incorrect": "Not quite. Work out the right side first: take what is in `speed` (3) and add 2. Then that answer replaces the old value in the box."
+        }
+      },
+      {
+        "questionId": "q2",
+        "prompt": "Which is the best variable name for how many laps the robot has finished?",
+        "options": [
+          "x",
+          "lapsDone",
+          "7laps",
+          "laps done"
+        ],
+        "correctAnswer": "lapsDone",
+        "feedback": {
+          "correct": "Correct. `lapsDone` says what is inside the box. Names cannot start with a number or contain spaces, and `x` tells a reader nothing.",
+          "incorrect": "Not quite. A good name describes the value and follows the naming rules: no spaces, and it cannot start with a number. Which option does both?"
+        }
+      },
+      {
+        "questionId": "q3",
+        "prompt": "Why use a `steps` variable instead of typing 4 in every move?",
+        "options": [
+          "It makes the robot move faster",
+          "You can change the number in one place and every move updates",
+          "Robots cannot read numbers",
+          "It uses less battery"
+        ],
+        "correctAnswer": "You can change the number in one place and every move updates",
+        "feedback": {
+          "correct": "Correct. A variable keeps one value in one place. Change it once and every line that reads it changes too.",
+          "incorrect": "Not quite. Think about Maya's program when the flag moved. What was the problem with having the number written in many places?"
+        }
+      }
+    ]
+  },
+  {
+    "moduleId": "m02-loops-do-it-again",
+    "title": "Loops: Do It Again",
+    "learningOutcomes": [
+      "Learners will be able to identify a repeating pattern in a sequence of robot instructions.",
+      "Learners will be able to write a loop that repeats a pattern and predict how many instructions it runs in total."
+    ],
+    "sections": [
+      {
+        "sectionId": "s1",
+        "heading": "Scenario: Twelve Blocks for One Staircase",
+        "body": "Diego's robot has to climb a staircase on the mat. Each stair is one square up and one square across.\n\n**Program excerpt**\n\n```\nforward(1)\nturnRight()\nforward(1)\nturnLeft()\nforward(1)\nturnRight()\nforward(1)\nturnLeft()\nforward(1)\nturnRight()\nforward(1)\nturnLeft()\n```\n\nThe program works, but it uses 12 blocks and the limit for this challenge is 4. Diego also made a mistake on line 7 the first time and spent ten minutes finding it.\n\nAsk yourself: do you see a group of lines that repeats? How many times does it repeat? Hold on to both answers."
+      },
+      {
+        "sectionId": "s2",
+        "heading": "Finding the Pattern and Looping It",
+        "body": "A **loop** repeats the same instructions so you do not have to write them again.\n\n```\nrepeat 3 {\n  forward(1)\n  turnRight()\n  forward(1)\n  turnLeft()\n}\n```\n\nThe four lines inside the braces are the **loop body**. They run three times: 4 blocks x 3 repeats = 12 instructions.\n\nTo turn a long program into a loop, ask two questions:\n\n- **What repeats?** Find the smallest group of instructions that happens again and again. That group becomes the loop body.\n- **How many times?** Count how many times the group appears. That number is the repeat count.\n\n**Tip:** Check that the robot ends each pass through the loop facing the same way it started. If it does not, the pattern will drift.\n\n**Why loops help**\n\n- Fewer blocks to write and read.\n- A mistake only has to be fixed once, inside the loop body.\n- Changing the staircase from 3 stairs to 5 means changing one number."
+      }
+    ],
+    "assignments": [
+      {
+        "assignmentId": "a1",
+        "title": "Climb the Stairs in Four Blocks",
+        "instructions": "Open the robot grid activity for this module. The robot starts on square A1 facing north. The flag is on square D4.\n\n1. On paper, write the moves the robot needs without a loop. Circle the group of moves that repeats.\n2. Build that group as the loop body using **no more than 4 blocks**.\n3. Set the repeat count and run the program. If the robot misses the flag, decide whether the problem is the loop body or the repeat count before you change anything.\n4. Write the total number of instructions your loop ran, and show the multiplication you used.\n5. Describe one everyday task (not a robot task) that is a loop, and say what the loop body and the repeat count are."
+      }
+    ],
+    "quizBank": [
+      {
+        "questionId": "q1",
+        "prompt": "A loop body has 3 blocks and repeats 4 times. How many instructions run in total?",
+        "options": [
+          "7",
+          "12",
+          "4",
+          "3"
+        ],
+        "correctAnswer": "12",
+        "feedback": {
+          "correct": "Correct. 3 blocks x 4 repeats = 12 instructions.",
+          "incorrect": "Not quite. Every block in the body runs on every pass through the loop. Multiply the blocks in the body by the number of repeats."
+        }
+      },
+      {
+        "questionId": "q2",
+        "prompt": "Which task is the best fit for a loop?",
+        "options": [
+          "Say hello once",
+          "Drive around a square track 5 times",
+          "Pick a team name",
+          "Turn the robot on"
+        ],
+        "correctAnswer": "Drive around a square track 5 times",
+        "feedback": {
+          "correct": "Correct. Driving laps repeats the same moves, so a loop saves writing them over and over.",
+          "incorrect": "Not quite. A loop is useful when the same instructions happen again and again. Which task repeats?"
+        }
+      },
+      {
+        "questionId": "q3",
+        "prompt": "A robot starts on square A1 facing north and runs `repeat 3 { forward(1) turnRight() forward(1) turnLeft() }`. Columns are A to F from left to right and rows are 1 to 6 from bottom to top. Where does it finish?",
+        "options": [
+          "D4",
+          "C3",
+          "D1",
+          "A4"
+        ],
+        "correctAnswer": "D4",
+        "feedback": {
+          "correct": "Correct. Each pass moves the robot one square up and one square right, and it ends facing north again. Three passes take it from A1 to D4.",
+          "incorrect": "Not quite. Trace one pass first: forward moves up one row, turn right, forward moves one column right, turn left to face north again. Now repeat that three times from A1."
+        }
+      }
+    ]
+  },
+  {
+    "moduleId": "m03-algorithms-step-by-step",
+    "title": "Algorithms: Step by Step",
+    "learningOutcomes": [
+      "Learners will be able to break a task into smaller steps (decomposition).",
+      "Learners will be able to put the steps of an algorithm in a working order and explain what goes wrong when two steps are swapped."
+    ],
+    "sections": [
+      {
+        "sectionId": "s1",
+        "heading": "Scenario: The Delivery That Went Backwards",
+        "body": "Priya's team built a robot that follows a black line to a shelf and drops off a package. On the first test it lowered its gripper at the start line, dropped the package, and then drove to the shelf with nothing to deliver.\n\n**Team conversation**\n\n> **Priya:** All the steps are there. I checked.\n>\n> **Kofi:** They are, but look at the order. \"Release the package\" comes before \"drive along the line.\"\n>\n> **Priya:** The robot should know it's not at the shelf yet.\n>\n> **Kofi:** It only knows what we told it, in the order we told it.\n\nNothing was missing from the program. The steps were in the wrong order.\n\nAsk yourself: what does each step need to be true before it can work? That question is how you put steps in order."
+      },
+      {
+        "sectionId": "s2",
+        "heading": "Decompose, Sequence, Test",
+        "body": "An **algorithm** is a list of exact steps that solves a problem. Order matters, because a computer follows the steps exactly as written.\n\nEngineers build algorithms in three moves:\n\n- **Decompose:** split the big job into small parts. \"Deliver the package\" becomes: get ready, follow the line, stop at the shelf, release the package, come back.\n- **Sequence:** put the parts in order. For each step ask, \"What has to happen before this can work?\"\n- **Test:** follow the steps exactly, one at a time, and check the result. Do not skip ahead or fill in what you meant.\n\n**Tip:** When you test, pretend you are the robot. Do only what the step says. If you find yourself thinking \"obviously it should...\", you have found a missing or misplaced step.\n\n**Example**\n\n- Jumbled: release the package, drive along the line, calibrate the sensor, stop at the shelf.\n- In order: calibrate the sensor, drive along the line, stop at the shelf, release the package.\n\nCalibrating comes first because the robot cannot follow the line until its sensor knows what black and white look like."
+      }
+    ],
+    "assignments": [
+      {
+        "assignmentId": "a1",
+        "title": "Order the Delivery Algorithm",
+        "instructions": "Open the ordering activity for this module. A line-following robot needs to deliver a package to a shelf and return.\n\n1. Put the five steps in the order the robot should run them. Use the feedback to fix any that are out of place.\n2. For each step after the first, write one sentence saying what had to happen before it could work.\n3. Swap any two steps in your finished list. Describe exactly what the robot would do wrong.\n4. Choose a task you do every day, such as packing your bag for school. Decompose it into five or six steps and write them as an algorithm.\n5. Give your algorithm to a classmate and ask them to follow it exactly. Note one step you had to add or move."
+      }
+    ],
+    "quizBank": [
+      {
+        "questionId": "q1",
+        "prompt": "What happens if two steps of an algorithm are swapped?",
+        "options": [
+          "Nothing, order never matters",
+          "The result can change or fail",
+          "The robot runs faster",
+          "The computer fixes it"
+        ],
+        "correctAnswer": "The result can change or fail",
+        "feedback": {
+          "correct": "Correct. Computers follow steps exactly as written, so a wrong order can give a wrong result.",
+          "incorrect": "Not quite. Think about Priya's robot. Every step was there, but what happened when \"release\" came before \"drive\"?"
+        }
+      },
+      {
+        "questionId": "q2",
+        "prompt": "Splitting \"clean my room\" into \"pick up clothes, make the bed, vacuum\" is called:",
+        "options": [
+          "Debugging",
+          "Decomposition",
+          "Looping",
+          "Compiling"
+        ],
+        "correctAnswer": "Decomposition",
+        "feedback": {
+          "correct": "Correct. Decomposition breaks a big problem into smaller parts you can solve one at a time.",
+          "incorrect": "Not quite. The task is being broken into smaller parts. Which word names that move?"
+        }
+      },
+      {
+        "questionId": "q3",
+        "prompt": "A line-following robot must: (A) drive along the black line, (B) calibrate its light sensor, (C) stop at the shelf, (D) release the package. Which order works?",
+        "options": [
+          "A, B, C, D",
+          "B, A, C, D",
+          "B, A, D, C",
+          "D, A, C, B"
+        ],
+        "correctAnswer": "B, A, C, D",
+        "feedback": {
+          "correct": "Correct. The sensor must be calibrated before the robot can follow the line, and the robot must stop at the shelf before it releases the package.",
+          "incorrect": "Not quite. For each step ask what has to be true first. Can the robot follow the line before its sensor is calibrated? Should it release the package before it has stopped at the shelf?"
+        }
+      }
+    ]
+  },
+  {
+    "moduleId": "m04-sensors-how-robots-notice",
+    "title": "Sensors: How Robots Notice",
+    "learningOutcomes": [
+      "Learners will be able to explain that a sensor turns something in the world into a number a program can use.",
+      "Learners will be able to choose the right sensor (ultrasonic, light, touch or gyro) for a given robot task."
+    ],
+    "sections": [
+      {
+        "sectionId": "s1",
+        "heading": "Scenario: The Robot That Kept Hitting the Wall",
+        "body": "Zoe's robot is supposed to drive to the wall and stop just before it. It hits the wall every time.\n\n**Team conversation**\n\n> **Zoe:** I told it to drive forward 20 squares' worth and stop.\n>\n> **Ravi:** But we started it from a different spot today.\n>\n> **Zoe:** So it should stop sooner.\n>\n> **Ravi:** How would it know? It can't see the wall.\n\nZoe's program counts distance travelled. It has no way to notice the wall. If the starting point changes, the count is wrong.\n\nAsk yourself: what would the robot need to measure so it could stop in the right place no matter where it started?"
+      },
+      {
+        "sectionId": "s2",
+        "heading": "Four Sensors and What They Measure",
+        "body": "A **sensor** turns something in the world into a number the program can use. The program then makes a decision with that number.\n\n- **Ultrasonic:** sends out sound and times the echo to measure **distance**, usually in centimetres. Use it to stop before a wall.\n- **Light / color:** measures how much light bounces back, from 0 (dark) to 100 (bright). Use it to follow a black line on a white mat.\n- **Touch:** reports **pressed** or **released**. Use it to know the bumper has reached a shelf.\n- **Gyro:** measures how far the robot has **turned**, in degrees. Use it to turn exactly 90 degrees or to drive straight.\n\n**Tip:** To choose a sensor, name the thing you need to know first (how far? how bright? touching? how much turn?). The sensor follows from the question.\n\n**Zoe's fix**\n\n- Before: \"Drive forward a fixed distance, then stop.\"\n- After: \"Drive forward until the ultrasonic sensor reads 10 cm or less, then stop.\"\n\nNow the robot stops in the right place wherever it starts, because it is measuring the wall and not guessing."
+      }
+    ],
+    "assignments": [
+      {
+        "assignmentId": "a1",
+        "title": "Match the Sensor to the Job",
+        "instructions": "Open the sensor-matching activity for this module.\n\n1. Match each of the four robot jobs to the best sensor. Use the feedback to fix any mismatches.\n2. For each job, write what the sensor measures and the unit or values it reports (for example, centimetres, 0 to 100, pressed or released, degrees).\n3. Rewrite this instruction so it uses a sensor: \"Turn right for one second.\" Say which sensor you chose and why.\n4. A robot must follow a black line and stop when it reaches a box at the end. Name the two sensors it needs and what each one is for.\n5. Find one sensor in a device at home or school (a phone, an automatic door, a thermostat). Write what it measures and what the device does with the number."
+      }
+    ],
+    "quizBank": [
+      {
+        "questionId": "q1",
+        "prompt": "An ultrasonic sensor reads 8. What does that most likely mean?",
+        "options": [
+          "The robot has turned 8 degrees",
+          "Something is 8 cm away",
+          "The battery is at 8%",
+          "The robot has done 8 laps"
+        ],
+        "correctAnswer": "Something is 8 cm away",
+        "feedback": {
+          "correct": "Correct. Ultrasonic sensors measure distance, usually in centimetres.",
+          "incorrect": "Not quite. Think about what an ultrasonic sensor does: it sends out sound and times the echo. What does that let it measure?"
+        }
+      },
+      {
+        "questionId": "q2",
+        "prompt": "Which sensor helps a robot keep driving straight after a bump knocks it sideways?",
+        "options": [
+          "Touch",
+          "Gyro",
+          "Light",
+          "Ultrasonic"
+        ],
+        "correctAnswer": "Gyro",
+        "feedback": {
+          "correct": "Correct. The gyro tracks how far the robot has turned, so the program can steer back to its original heading.",
+          "incorrect": "Not quite. The robot needs to know it has turned away from its heading. Which sensor measures turning?"
+        }
+      },
+      {
+        "questionId": "q3",
+        "prompt": "A robot's light sensor reads about 8 over black tape and about 85 over the white mat. While following the line, it reads 82. Where is the sensor most likely pointing?",
+        "options": [
+          "At the black tape",
+          "At the white mat, off the line",
+          "At the edge, half on the tape",
+          "Nowhere; the sensor is broken"
+        ],
+        "correctAnswer": "At the white mat, off the line",
+        "feedback": {
+          "correct": "Correct. 82 is very close to the white-mat reading of 85, so the sensor has drifted off the tape and the robot should steer back toward the line.",
+          "incorrect": "Not quite. Compare 82 with the two known readings. Is it closer to the reading for black tape (8) or for the white mat (85)? A half-on reading would be near the middle."
+        }
+      }
+    ]
+  },
+  {
+    "moduleId": "m05-challenge-warehouse-run",
+    "title": "Challenge: Warehouse Run",
+    "learningOutcomes": [
+      "Learners will be able to plan a route on a grid before programming it and translate the plan into robot instructions.",
+      "Learners will be able to debug a program by tracing it one move at a time and reduce its block count using a variable."
+    ],
+    "sections": [
+      {
+        "sectionId": "s1",
+        "heading": "Scenario: The Competition Brief",
+        "body": "Your team's robot must cross the warehouse floor from square **A1** to the loading dock at **F6**. Shelves block some of the aisles. Judges give more points to programs that use fewer blocks.\n\n**Team conversation**\n\n> **Aisha:** Let's just start adding blocks and see where it goes.\n>\n> **Mateo:** Last round we did that and hit a shelf four times.\n>\n> **Aisha:** We fixed it in the end.\n>\n> **Mateo:** With 19 blocks. The winning team used 12.\n\nAisha's approach gets there eventually. Mateo's point is that a few minutes of planning costs less than many failed runs, and it produces a shorter program.\n\nAsk yourself: what would you want to know about the floor before you place the first block?"
+      },
+      {
+        "sectionId": "s2",
+        "heading": "Plan, Program, Trace, Tighten",
+        "body": "Use the same four moves each time you face a route challenge.\n\n- **Plan:** Trace the route on the grid with your finger before you program. Write it as runs and turns, for example: \"up 4, right 2, down 3, right 3, up 4.\"\n- **Program:** Turn each run into forward moves and each change of direction into a turn. Remember that turns are from the robot's point of view, not yours.\n- **Trace:** If the robot crashes, do not guess. Follow the program one move at a time on the grid until you reach the move named in the feedback. The mistake is usually the turn or the count just before it.\n- **Tighten:** Look for runs of the same length. Store that length in `steps` and replace several `forward(1)` blocks with one `forward(steps)`.\n\n**Tip:** Change one thing between runs. If you change two things and the result is different, you will not know which change did it.\n\n**Example**\n\n- Before: `forward(1)` four times, `turnRight()`, `forward(1)` twice. That is 7 blocks.\n- After: `let steps = 4`, then `forward(steps)`, `turnRight()`, `forward(1)`, `forward(1)`. That is 4 blocks."
+      }
+    ],
+    "assignments": [
+      {
+        "assignmentId": "a1",
+        "title": "Program the Warehouse Run",
+        "instructions": "Open the robot grid activity for this module. The robot starts on square A1 facing north. The loading dock is on square F6. Shelves block squares B1 to B4 and D3 to D6.\n\n1. On paper, plan the route as runs and turns (for example, \"up 4, right 2...\") before you add any blocks.\n2. Program the route and run it. Stay within the limit of **14 blocks**.\n3. If the robot crashes, trace your program one move at a time to the move named in the feedback. Write down what was wrong: the turn, or the number of squares.\n4. Tighten your program: use `forward(steps)` for at least one long run. Record your block count before and after.\n5. Team debrief: write three or four sentences on what went wrong on your first run and what you changed. Engineers call this iteration."
+      }
+    ],
+    "quizBank": [
+      {
+        "questionId": "q1",
+        "prompt": "A robot starts on square A1 facing north and runs `forward(4)`, `turnRight()`, `forward(2)`. Columns are A to F from left to right and rows are 1 to 6 from bottom to top. Where does it finish?",
+        "options": [
+          "C5",
+          "E3",
+          "A5",
+          "C3"
+        ],
+        "correctAnswer": "C5",
+        "feedback": {
+          "correct": "Correct. Four squares north takes it from A1 to A5. It turns right to face east, and two squares east takes it to C5.",
+          "incorrect": "Not quite. Trace it in two parts. Moving north changes the row number: where is the robot after 4 squares? Then it turns right to face east, and moving east changes the column letter."
+        }
+      },
+      {
+        "questionId": "q2",
+        "prompt": "The feedback says: \"Bonk! Shelf at D3 on move 7.\" What is the best first step?",
+        "options": [
+          "Delete the program and start again",
+          "Add more forward blocks at the end",
+          "Trace the program one move at a time up to move 7 and check the turn or count just before it",
+          "Change the starting square"
+        ],
+        "correctAnswer": "Trace the program one move at a time up to move 7 and check the turn or count just before it",
+        "feedback": {
+          "correct": "Correct. The feedback tells you where the crash happened. Tracing to that move shows whether a turn went the wrong way or a run was one square too long.",
+          "incorrect": "Not quite. The feedback gives you the exact move where things went wrong. What is the most direct way to see what the program did right before that move?"
+        }
+      },
+      {
+        "questionId": "q3",
+        "prompt": "Judges score fewer blocks higher. Your program has `forward(1)` four times in a row in two different places. What is the best change?",
+        "options": [
+          "Remove one of the runs",
+          "Set `steps` to 4 and use one `forward(steps)` block for each run",
+          "Add a turn between them",
+          "Make the robot drive faster"
+        ],
+        "correctAnswer": "Set `steps` to 4 and use one `forward(steps)` block for each run",
+        "feedback": {
+          "correct": "Correct. Two runs of four blocks become two single blocks, and the route stays the same.",
+          "incorrect": "Not quite. The route has to stay the same, so you cannot remove a run. Which option keeps every move but uses fewer blocks to say it?"
+        }
+      }
+    ]
+  },
+  {
+    "moduleId": "m06-the-design-loop",
+    "title": "The Design Loop",
+    "learningOutcomes": [
+      "Learners will be able to name the stages of the engineering design process (Ask, Imagine, Plan, Create, Test and improve) and put them in order.",
+      "Learners will be able to decide what to do next after a failed test, changing one thing at a time."
+    ],
+    "sections": [
+      {
+        "sectionId": "s1",
+        "heading": "Scenario: Three Drops out of Ten",
+        "body": "Emma's team built a gripper to pick up a ping-pong ball. They tested it ten times. It dropped the ball three times.\n\n**Team conversation**\n\n> **Emma:** It doesn't work. We should start over with a new design.\n>\n> **Noah:** It worked seven times.\n>\n> **Emma:** Seven isn't good enough for the competition.\n>\n> **Noah:** Right, so what was different about the three drops?\n\nEmma treats the test as a verdict: pass or fail. Noah treats it as information. The three drops are telling the team something about the gripper.\n\nAsk yourself: what would you want to look at before deciding whether to rebuild or adjust?"
+      },
+      {
+        "sectionId": "s2",
+        "heading": "The Loop, Stage by Stage",
+        "body": "The **engineering design process** is a loop, not a straight line. Most first designs fail a test. That is useful information.\n\n- **Ask:** What is the problem, and what are the limits? \"The ball is 40 mm wide and weighs 2.7 g. The gripper must lift it 10 cm.\"\n- **Imagine:** Brainstorm many ideas before choosing. Sketch at least three.\n- **Plan:** Pick one idea, draw it, and list the parts.\n- **Create:** Build a prototype. It does not need to be pretty.\n- **Test and improve:** Measure what happens, change **one** thing, and test again.\n\nAfter testing, you go back around. A small problem sends you back to Create. A big one may send you back to Imagine or even Ask.\n\n**Tip:** Change one thing at a time. If you widen the claw and add rubber pads together and the gripper improves, you will not know which change helped.\n\n**Emma's team, next lap**\n\n- What they saw: all three drops happened when the ball sat slightly off-centre.\n- One change: widen the claw by 5 mm.\n- Retest: ten more tries, counted the same way.\n\nThey did not start over. They used the test to choose the next change."
+      }
+    ],
+    "assignments": [
+      {
+        "assignmentId": "a1",
+        "title": "Run One Lap of the Design Loop",
+        "instructions": "Open the ordering activity for this module, then complete the design task below.\n\n1. Put the five stages of the gripper project in order. Use the feedback to fix any that are out of place.\n2. Design task: a robot arm must move a ping-pong ball from the table into a cup 20 cm away. Write the **Ask** stage: state the problem and at least two limits (size, weight, materials or time).\n3. **Imagine:** sketch three different ideas. **Plan:** choose one and list its parts.\n4. Write a test you could run ten times and what you would count as a success.\n5. Imagine your test result is 6 out of 10. Name **one** thing you would change, explain why, and say which stage that sends you back to.\n6. Reflection: think about something you built or fixed. Which stage did you spend the most time on, and why?"
+      }
+    ],
+    "quizBank": [
+      {
+        "questionId": "q1",
+        "prompt": "A team's gripper drops the ball 3 times out of 10. According to the design loop, what should they do next?",
+        "options": [
+          "Stop; the design has failed",
+          "Find what the three drops had in common, change one thing, and test again",
+          "Change the claw, the motor and the pads all at once",
+          "Skip testing and enter the competition"
+        ],
+        "correctAnswer": "Find what the three drops had in common, change one thing, and test again",
+        "feedback": {
+          "correct": "Correct. A failed test is information. The team uses it to choose one change and then tests again to see whether it helped.",
+          "incorrect": "Not quite. The design loop treats a test result as information, not a final verdict. Which option uses the result to decide a single next change?"
+        }
+      },
+      {
+        "questionId": "q2",
+        "prompt": "Why should a team change only one thing between tests?",
+        "options": [
+          "It is faster to build",
+          "So they know which change caused the difference",
+          "Judges require it",
+          "Parts are expensive"
+        ],
+        "correctAnswer": "So they know which change caused the difference",
+        "feedback": {
+          "correct": "Correct. If two things change and the result improves, the team cannot tell which change helped, or whether one of them made things worse.",
+          "incorrect": "Not quite. Imagine the team widens the claw and adds rubber pads together, and the gripper gets better. What can they not tell from that result?"
+        }
+      },
+      {
+        "questionId": "q3",
+        "prompt": "Which statement belongs to the **Ask** stage?",
+        "options": [
+          "We built the claw from cardboard and a servo.",
+          "The ball is 40 mm wide and weighs 2.7 g, and the gripper must lift it 10 cm.",
+          "Here are five sketches of different grippers.",
+          "It dropped the ball 3 times out of 10, so we widened the claw."
+        ],
+        "correctAnswer": "The ball is 40 mm wide and weighs 2.7 g, and the gripper must lift it 10 cm.",
+        "feedback": {
+          "correct": "Correct. The Ask stage states the problem and its limits before any ideas or building.",
+          "incorrect": "Not quite. The Ask stage defines the problem and its limits. Which statement describes what must be solved, before any sketching, building or testing?"
+        }
+      }
+    ]
+  }
+]

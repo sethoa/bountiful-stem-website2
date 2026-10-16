@@ -1,0 +1,48 @@
+{
+  "pathways": [
+    {
+      "pathwayId": "programming-fundamentals",
+      "title": "Programming Fundamentals",
+      "summary": "Store values in variables and repeat patterns with loops.",
+      "defaultPublished": true,
+      "modules": ["m01-variables-robot-memory", "m02-loops-do-it-again"]
+    },
+    {
+      "pathwayId": "computational-thinking",
+      "title": "Computational Thinking",
+      "summary": "Break a job into steps and put them in an order that works.",
+      "defaultPublished": true,
+      "modules": ["m03-algorithms-step-by-step"]
+    },
+    {
+      "pathwayId": "robotics",
+      "title": "Robotics",
+      "summary": "Use sensors to notice the world, then plan and debug a full route.",
+      "defaultPublished": true,
+      "modules": ["m04-sensors-how-robots-notice", "m05-challenge-warehouse-run"]
+    },
+    {
+      "pathwayId": "engineering-design",
+      "title": "Engineering Design",
+      "summary": "Ask, imagine, plan, create, test and improve, one change at a time.",
+      "defaultPublished": false,
+      "modules": ["m06-the-design-loop"]
+    }
+  ],
+  "moduleMeta": {
+    "m01-variables-robot-memory": { "minutes": 15, "steps": ["What is a variable?", "Changing a value", "Try it", "Quick check", "Reflect"] },
+    "m02-loops-do-it-again": { "minutes": 15, "steps": ["Spot the repeat", "Loop the pattern", "Try it", "Quick check", "Reflect"] },
+    "m03-algorithms-step-by-step": { "minutes": 15, "steps": ["Wrong order", "Decompose and sequence", "Try it", "Quick check", "Reflect"] },
+    "m04-sensors-how-robots-notice": { "minutes": 15, "steps": ["Hitting the wall", "Four sensors", "Try it", "Quick check", "Reflect"] },
+    "m05-challenge-warehouse-run": { "minutes": 20, "steps": ["The brief", "Plan and trace", "Try it", "Quick check", "Reflect"] },
+    "m06-the-design-loop": { "minutes": 15, "steps": ["Three drops", "The loop", "Try it", "Quick check", "Reflect"] }
+  },
+  "stepKinds": ["lesson", "lesson", "activity", "quiz", "reflect"],
+  "badges": [
+    { "badgeId": "first-run", "title": "First run", "description": "Ran a program on the robot grid." },
+    { "badgeId": "flag-finder", "title": "Flag finder", "description": "Reached the flag in a grid activity." },
+    { "badgeId": "bug-squasher", "title": "Bug squasher", "description": "Passed an activity after a failed run." },
+    { "badgeId": "sharp-eye", "title": "Sharp eye", "description": "Scored 100% on a quick check." },
+    { "badgeId": "pathway-complete", "title": "Pathway complete", "description": "Finished every module in a pathway." }
+  ]
+}
