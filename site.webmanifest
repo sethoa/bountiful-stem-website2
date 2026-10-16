@@ -1,0 +1,12 @@
+{
+  "name": "Bountiful STEM Educational Foundation",
+  "short_name": "Bountiful STEM",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbfbf8",
+  "theme_color": "#0b1f52",
+  "icons": [
+    { "src": "assets/img/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "assets/img/apple-touch-icon.png", "type": "image/png", "sizes": "180x180" }
+  ]
+}
