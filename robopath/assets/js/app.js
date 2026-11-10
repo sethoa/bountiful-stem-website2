@@ -101,7 +101,7 @@
       await RP.content.load();
     } catch (e) {
       root.innerHTML = `<div class="signin"><div class="card stack"><h1 class="page-title">RoboPath couldn't load its content</h1>
-        <p>The data files in <code>data/</code> did not load (${esc(e.message)}). Browsers block these files when the page is opened straight from disk.
+        <p>The data files in <code>assets/data/</code> did not load (${esc(e.message)}). Browsers block these files when the page is opened straight from disk.
         Start a local server in the project folder, for example <code>python3 -m http.server 8000</code>, then open <code>http://localhost:8000</code>.</p></div></div>`;
       return;
     }

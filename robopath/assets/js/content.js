@@ -5,8 +5,8 @@
 
   async function load() {
     const files = ["modules", "pathways", "activities", "school", "requirements"];
-    const results = await Promise.all(files.map(f => fetch(`data/${f}.json`).then(r => {
-      if (!r.ok) throw new Error(`data/${f}.json returned ${r.status}`);
+    const results = await Promise.all(files.map(f => fetch(`assets/data/${f}.json`).then(r => {
+      if (!r.ok) throw new Error(`assets/data/${f}.json returned ${r.status}`);
       return r.json();
     })));
     const [modules, pathways, activities, school, requirements] = results;
